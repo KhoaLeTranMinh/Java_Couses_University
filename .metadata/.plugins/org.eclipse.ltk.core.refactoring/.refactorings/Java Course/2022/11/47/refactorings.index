@@ -1,0 +1,5 @@
+1668604781143	Extract method 'shift'
+1668612779198	Rename type 'Test'
+1668612884761	Extract method 'rotate'
+1668615041321	Extract method 'imageSignRenew'
+1668616047505	Extract method 'copy2DArray'

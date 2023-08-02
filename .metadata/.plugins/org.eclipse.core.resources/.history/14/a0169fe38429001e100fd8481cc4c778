@@ -1,0 +1,298 @@
+package Week14;
+
+import java.util.Stack;
+
+public class BinaryTreeSearchGenerics<M extends Comparable<M>, N> {
+	private Node<M, N> root;
+
+	private class Node<K extends Comparable<K>, V> {
+		private K key;
+		private V data;
+		private Node<K, V> right;
+		private Node<K, V> left;
+
+		public Node(K key, V data) {
+			this.key = key;
+			this.data = data;
+			this.right = null;
+			this.left = null;
+		}
+
+		public K getKey() {
+			return key;
+		}
+
+		public V getData() {
+			return data;
+		}
+
+		public void addLeft(Node<K, V> n) {
+			left = n;
+		}
+
+		public void addRight(Node<K, V> n) {
+			right = n;
+		}
+
+		public void deleteRight() {
+			right = null;
+		}
+
+		public void deleteLeft() {
+			left = null;
+		}
+
+		public Node<K, V> getLeft() {
+			return left;
+		}
+
+		public Node<K, V> getRight() {
+			return right;
+		}
+
+		public void update(K key, V data) {
+			this.key = key;
+			this.data = data;
+		}
+
+		public String toString() {
+			return "<" + key.toString() + ", " + data.toString() + ">";
+		}
+	}
+
+	public static void main(String[] args) {
+		BinaryTreeSearchGenerics<Integer, String> tree = new BinaryTreeSearchGenerics<Integer, String>();
+		// Test case 1
+		tree.add(9, "n1");
+		tree.add(5, "n2");
+		tree.add(10, "n3");
+		tree.add(2, "n4");
+		tree.add(7, "n5");
+		tree.add(11, "n6");
+		tree.add(1, "n7");
+		tree.add(4, "n8");
+		tree.add(3, "n9");
+		tree.add(6, "n10");
+		tree.add(8, "n11");
+		tree.add(12, "n12");
+		tree.printTree();
+		System.out.println();
+		// test case 2
+
+		System.out.println("Search " + 1);
+		System.out.println("Result " + tree.search(1));
+
+		System.out.println("Search " + 11);
+		System.out.println("Result " + tree.search(11));
+
+		System.out.println("Search " + 20);
+		System.out.println("Result " + tree.search(20));
+		System.out.println();
+
+		// Test case 3
+		System.out.println("Delete " + 6);
+		tree.delete(6);
+		tree.printTree();
+
+		System.out.println("Delete " + 10);
+		tree.delete(10);
+		tree.printTree();
+
+		System.out.println("Delete " + 5);
+		tree.delete(5);
+		tree.printTree();
+	}
+
+	public BinaryTreeSearchGenerics() {
+		root = null;
+	}
+
+	public N search(M key) {
+		Node<M, N> p = this.root;
+		while (p != null) {
+			if (p.getKey() == key) {
+				return p.getData();
+			}
+			if (key.compareTo(p.getKey()) > 0) {
+				p = p.getRight();
+			} else if (key.compareTo(p.getKey()) < 0) {
+				p = p.getLeft();
+			}
+
+		}
+		return null;
+	}
+
+	public boolean add(M key, N data) {
+		if (this.root == null) {
+			root = new Node<M, N>(key, data);
+			return true;
+		}
+		Node<M, N> p = this.root;
+		while (true) {
+			if (key.compareTo(p.getKey()) == 0) {
+				return false;
+			}
+			if (key.compareTo(p.getKey()) > 0) {
+				if (p.getRight() == null) {
+					p.addRight(new Node<M, N>(key, data));
+					return true;
+				} else {
+					p = p.getRight();
+				}
+			}
+			if (key.compareTo(p.getKey()) < 0) {
+				if (p.left == null) {
+					p.addLeft(new Node<M, N>(key, data));
+					return true;
+				} else {
+					p = p.getLeft();
+				}
+			}
+		}
+	}
+
+	public boolean delete(M key) {
+		Node<M, N> goal = this.root;
+
+		while (goal.getLeft() != null && goal.getRight() != null) {
+			if (key.compareTo(goal.getKey()) == 0) {
+				break;
+			} else if (key.compareTo(goal.getKey()) > 0) {
+				goal = goal.getRight();
+			} else if (key.compareTo(goal.getKey()) < 0) {
+				goal = goal.getLeft();
+			}
+		}
+		// At this point, goal is the node that needs to be deleted.
+		if (goal == null) {
+			return false;
+		}
+		if (goal.getLeft() == null && goal.getRight() == null) {
+//			Node<M,N> current = goal;
+//			current = goal;
+//			current = null;
+//			return true;
+			Node<M, N> current = this.root;
+			while (true) {
+				if (current == goal) {
+//					current.deleteLeft();
+					current = null;
+					// for this, current = null doesn't do the job. The real node in the true still won't disappear
+					return true;
+				
+//				} else if (current == goal) {
+////					current.deleteRight();
+//					current = null;
+//					return true;
+				} else if (goal.getKey().compareTo(current.getKey()) > 0) { // key of goalisto the right of
+					// current
+					current = current.getRight();
+				} else if (goal.getKey().compareTo(current.getKey()) < 0) {
+					current = current.getLeft();
+				}
+			}
+		}
+		// Deleting the node with only one left child
+		if (goal.getLeft() != null && goal.getRight() == null) {
+			Node<M, N> current = this.root;
+			while (true) {
+				if (current.getLeft() == goal) {
+					current.left = goal.getLeft();
+					goal = null;
+					return true;
+				} else if (current.getRight() == goal) {
+					current.right = goal.getLeft();
+					goal = null;
+					return true;
+				} else if (goal.getKey().compareTo(current.getKey()) > 0) { // key of goal is to the right of
+																			// current
+					current = current.getRight();
+				} else if (goal.getKey().compareTo(current.getKey()) < 0) {
+					current = current.getLeft();
+				}
+			}
+		}
+		// Deleting the node with only the right child
+		if (goal.getLeft() == null && goal.getRight() != null) {
+			Node<M, N> current = this.root;
+			while (true) {
+				if (current.getLeft() == goal) {
+					current.left = goal.getRight();
+					goal = null;
+					return true;
+				} else if (current.getRight() == goal) {
+					current.right = goal.getRight();
+					goal = null;
+					return true;
+				} else if (goal.getKey().compareTo(current.getKey()) > 0) { // key of goal is to the right of
+																			// current
+					current = current.getRight();
+				} else if (goal.getKey().compareTo(current.getKey()) < 0) {
+					current = current.getLeft();
+				}
+			}
+		}
+
+		// Deleting the node of 2 children
+		if (goal.getLeft() != null && goal.getRight() != null) {
+			// finding the largest node on left subtree of goal
+			Node<M, N> largest = goal.getLeft();
+			while (largest.getRight() != null) {
+				largest = largest.getRight();
+			}
+			// Advancing till the node before the largest node
+			Node<M, N> current = this.root;
+			while (true) {
+				if (current.getRight() == largest) {
+					if (largest.getLeft() != null)
+						current.right = largest.getLeft();
+					goal.update(largest.getKey(), largest.getData());
+					largest = null;
+					return true;
+				} else if (current.getLeft() == largest) { // goal.getLeft == largest or current =- goal
+					if (largest.getLeft() != null)
+						current.left = largest.getLeft();
+					goal.update(largest.getKey(), largest.getData());
+					largest = null;
+					return true;
+
+				} else if (largest.getKey().compareTo(current.getKey()) > 0) { // key of goal is to the right of
+																				// current
+					current = current.getRight();
+				} else if (largest.getKey().compareTo(current.getKey()) < 0) {
+					current = current.getLeft();
+				}
+			}
+		}
+
+		return true;
+
+	}
+
+	public void printTree() {
+		if (root == null) {
+			System.out.println("No nodes in this tree");
+		} else {
+			Stack<Node<M, N>> stack = new Stack<Node<M, N>>();
+			stack.push(root);
+			while (!stack.empty()) {
+				Node<M, N> p = stack.pop();
+				System.out.print(p);
+				if (p.getLeft() != null || p.getRight() != null)
+					System.out.print(" has");
+				if (p.getLeft() != null) {
+					System.out.print(" " + p.getLeft() + " on left ");
+					stack.push(p.getLeft());
+				}
+				if (p.getRight() != null) {
+					System.out.print(" " + p.getRight() + " on right");
+					stack.push(p.getRight());
+				}
+				System.out.println();
+			}
+		}
+		System.out.println();
+	}
+
+}

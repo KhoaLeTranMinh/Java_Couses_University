@@ -1,0 +1,67 @@
+package Week10;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+/*** I DON'T RECOMMEND TO CHANGE THE BELOW CODE (EVEN THOUGH YOU CAN) ***/
+public class Problem1 {
+    public static void main(String[] args) {
+        showWindow();
+    }
+
+    // DON'T CHANGE THE METHOD SIGNATURE OF showWindow()
+    public static MainWindow showWindow() {
+        return new MainWindow();
+    }
+}
+/*** I DON'T RECOMMEND TO CHANGE THE ABOVE CODE (EVEN THOUGH YOU CAN) ***/
+
+class MainWindow extends JFrame {
+    public MainWindow() {
+        /********************************/
+        /* You need to write code here. */
+        /********************************/
+    	super("Problem2");
+    	this.setVisible(true);
+		this.setSize(1200, 700);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setContentPane(createContentPane());
+    }
+
+    private JPanel createContentPane() {
+        CanvasPanel canvas = new CanvasPanel();
+        /********************************/
+        // You need to write code here.
+        // Please use addMouseListener().
+        // - “ú–{Œê: https://docs.oracle.com/javase/jp/8/docs/api/java/awt/event/MouseListener.html
+        // - English: https://docs.oracle.com/javase/8/docs/api/java/awt/event/MouseListener.html
+        /********************************/
+        return canvas;
+    }
+}
+
+class CanvasPanel extends JPanel {
+    private final BufferedImage image;
+
+    public CanvasPanel() {
+        image = new BufferedImage(320, 240, BufferedImage.TYPE_INT_RGB);
+        /********************************/
+        /* You need to write code here. */
+        /********************************/
+    }
+
+    /******************************************************/
+    /* You need to write code here.                       */
+    /* Please declare a method for putting a black pixel. */
+    /******************************************************/
+    
+    @Override
+    public void paint(Graphics g) {
+    	g.setColor(Color.WHITE);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.drawImage(image, 0, 0, this);
+    }
+}

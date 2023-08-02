@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;public static int pivotFinder(int [] arr, int lowIdx, int highIdx)&apos; from &apos;Week6.QuickSort.Partition(...)&apos; to &apos;Week6.QuickSort&apos;&#x0D;&#x0A;- Original project: &apos;Java Course&apos;&#x0D;&#x0A;- Method name: &apos;pivotFinder&apos;&#x0D;&#x0A;- Destination type: &apos;Week6.QuickSort&apos;&#x0D;&#x0A;- Declared visibility: &apos;public&apos;" comments="false" description="Extract method &apos;pivotFinder&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;Week6{QuickSort.java" name="pivotFinder" replace="false" selection="1020 299" stamp="1668062810473" version="1.0" visibility="1"/>
+</session>

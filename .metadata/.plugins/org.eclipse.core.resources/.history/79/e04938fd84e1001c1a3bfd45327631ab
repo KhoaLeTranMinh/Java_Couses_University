@@ -1,0 +1,15 @@
+package Week7;
+
+import java.util.Scanner;
+
+public class Ex7_4_1w21cf19 {
+
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		int first = scan.nextInt();
+		int second = scan.nextInt();
+		char operator = scan.next().charAt(0);
+	}
+}

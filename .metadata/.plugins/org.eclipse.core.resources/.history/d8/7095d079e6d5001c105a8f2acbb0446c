@@ -1,0 +1,20 @@
+package Week5;
+
+import java.util.Scanner;
+
+public class Ex4_3_1w21c19 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		int a = scan.nextInt();
+		int b = scan.nextInt();
+		int c = scan.nextInt();
+		if (a+ b <= c || a +c <= b || b+c <= a) {
+			System.out.println("Not a triangle!");
+		}else {
+			System.out.println("Triangle!");
+		}
+}
+	
+}

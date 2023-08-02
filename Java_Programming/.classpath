@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="Week13/Main.java|Week13/PenSize.java|Week13/Trim.java|Week10/Problem2.java|Week14/RichPaintTool.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="Image"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

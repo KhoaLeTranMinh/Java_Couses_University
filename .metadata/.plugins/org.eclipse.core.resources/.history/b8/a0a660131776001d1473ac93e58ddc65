@@ -1,0 +1,94 @@
+package Week10;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
+/*** I DON'T RECOMMEND TO CHANGE THE BELOW CODE (EVEN THOUGH YOU CAN) ***/
+public class Problem2 {
+    public static void main(String[] args) {
+        showWindow2();
+    }
+
+    // DON'T CHANGE THE METHOD SIGNATURE OF showWindow()
+    public static MainWindow2 showWindow2() {
+        return new MainWindow2();
+    }
+}
+/*** I DON'T RECOMMEND TO CHANGE THE ABOVE CODE (EVEN THOUGH YOU CAN) ***/
+
+class MainWindow2 extends JFrame {
+    public MainWindow2() {
+        super("Paint Tool");
+        setContentPane(createContentPane());
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    private JPanel createContentPane() {
+        CanvasPanel canvas = new CanvasPanel();
+        MouseListener listener = new MouseListener(canvas);
+        /**********************************************************/
+        /* You need to register `listener` twice                  */
+        /* (`addMouseListener()` and `addMouseMotionListener()`). */
+        /**********************************************************/
+
+        JPanel contentPane = new JPanel(new BorderLayout());
+        contentPane.add(canvas, BorderLayout.CENTER);
+        return contentPane;
+    }
+}
+
+class MouseListener extends MouseAdapter {
+    private final CanvasPanel canvasPanel;
+    private int lastX;
+    private int lastY;
+
+    MouseListener(CanvasPanel canvas) {
+        canvasPanel = canvas;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        /********************************/
+        /* You need to write code here. */
+        /********************************/
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        /********************************/
+        /* You need to write code here. */
+        /********************************/
+    }
+}
+
+class CanvasPane2 extends JPanel {
+    private final BufferedImage image;
+    private final Graphics2D graphics;
+
+    public CanvasPane2() {
+        setName("canvas");
+        image = new BufferedImage(320, 240, BufferedImage.TYPE_INT_RGB);
+        graphics = image.createGraphics();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+        graphics.setColor(Color.BLACK);
+    }
+
+    public void drawLine(int startX, int startY, int endX, int endY) {
+        /***********************************************************/
+        /* Draw line between (startX, startY) and (endX, endY).    */
+        /* Note that you don't need to check the range of x and y. */
+        /***********************************************************/
+        repaint();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        g.drawImage(image, 0, 0, this);
+    }
+}

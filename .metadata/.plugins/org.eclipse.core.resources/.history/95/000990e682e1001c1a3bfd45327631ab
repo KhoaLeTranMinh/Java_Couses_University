@@ -1,0 +1,11 @@
+package Week7;
+
+public class Ex7_2_1w21cf19 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	String str1 = "Hello";
+	String str2 = "World";
+	}
+}

@@ -1,0 +1,167 @@
+package Week10;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.event.ActionListener;
+
+/*** I DON'T RECOMMEND TO CHANGE THE BELOW CODE (EVEN THOUGH YOU CAN) ***/
+public class Problem3 {
+    public static void main(String[] args) {
+        showWindow();
+    }
+
+    // DON'T CHANGE THE METHOD SIGNATURE OF showWindow()
+    public static MainWindow3 showWindow() {
+        return new MainWindow3();
+    }
+}
+/*** I DON'T RECOMMEND TO CHANGE THE ABOVE CODE (EVEN THOUGH YOU CAN) ***/
+
+class MainWindow3 extends JFrame {
+	ButtonGroup group;
+    public MainWindow3() {
+        super("Paint Tool");
+        group = new ButtonGroup();
+        setContentPane(createContentPane());
+        setSize(800, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+  
+    private void addButton(String text, Container container,CanvasPanel3 canvas) {
+        JRadioButton button = new JRadioButton(text);
+        button.setName(text);
+        button.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        addListenerToButton(button, canvas);
+        group.add(button);
+        if(button.getName()== "Black") {
+        	button.setSelected(true);
+        }
+        container.add(button);
+    }
+    private void addListenerToButton(JRadioButton button, CanvasPanel3 canvas) {
+    	button.addActionListener(new ActionListener() {
+    		
+    	});
+    private JPanel createContentPane() {
+        CanvasPanel3 canvas = new CanvasPanel3();
+        MouseListener3 listener = new MouseListener3(canvas);
+        /**********************************************************/
+        /* You need to register `listener` twice                  */
+        /* (`addMouseListener()` and `addMouseMotionListener()`). */
+        /**********************************************************/
+        canvas.addMouseListener(listener);
+        canvas.addMouseMotionListener(listener);
+        
+
+        
+        JPanel contentPane = new JPanel(new BorderLayout());
+        JPanel buttonPanel  = new JPanel();
+        buttonPanel.setBackground(Color.YELLOW);
+        buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.LINE_AXIS));
+        
+        addButton("Black", buttonPanel,canvas);
+        addButton("White", buttonPanel,canvas);
+        addButton("Red", buttonPanel,canvas);
+        addButton("Green", buttonPanel,canvas);
+        addButton("Blue", buttonPanel,canvas);
+        
+        
+        
+        contentPane.add(canvas, BorderLayout.CENTER);
+        contentPane.add(buttonPanel, BorderLayout.EAST);
+        
+        return contentPane;
+    }
+
+	
+}
+
+class MouseListener3 extends MouseAdapter {
+    private final CanvasPanel3 canvasPanel;
+    private int previousX;
+    private int previousY;
+
+    
+    MouseListener3(CanvasPanel3 canvas) {
+        canvasPanel = canvas;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        /********************************/
+        /* You need to write code here. */
+        /********************************/
+        previousX = e.getX();
+        previousY= e.getY();
+    	canvasPanel.blackPixel(e.getX(), e.getY());
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        /********************************/
+        /* You need to write code here. */
+        /********************************/
+    	canvasPanel.drawLine(previousX, previousY, e.getX(), e.getY());
+    	previousX = e.getX();//keeps previousX and previousY updated continuously
+    	previousY = e.getY();
+    }
+}
+
+class CanvasPanel3 extends JPanel {
+    private final BufferedImage image;
+    private final Graphics2D graphics;
+
+    public CanvasPanel3() {
+        setName("canvas");
+        image = new BufferedImage(320, 240, BufferedImage.TYPE_INT_RGB);
+        graphics = image.createGraphics();
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+    }
+
+    public void drawLine(int startX, int startY, int endX, int endY) {
+        /***********************************************************/
+        /* Draw line between (startX, startY) and (endX, endY).    */
+        /* Note that you don't need to check the range of x and y. */
+        /***********************************************************/
+    	graphics.drawLine(startX, startY, endX, endY);
+        repaint();
+    }
+    public void blackPixel (int x, int y) {
+    	image.setRGB(x, y, Color.BLACK.getRGB());
+    }
+    public void setColor(JRadioButton button) {
+    	String color = button.getName();
+    	switch(color) {
+    	case "Black":{
+    		graphics.setColor(Color.black);
+    		break;
+    	}
+    	case "White":{
+    		graphics.setColor(Color.white);
+    		break;
+    	}
+    	case "Red":{
+    		graphics.setColor(Color.red);
+    		break;
+    	}
+    	case "Green":{
+    		graphics.setColor(Color.green);
+    		break;
+    	}
+    	case "Blue":{
+    		graphics.setColor(Color.blue);
+    		break;
+    	}
+    	}
+    }
+    public void paint(Graphics g) {
+    	g.setColor(Color.GRAY);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		g.drawImage(image, 0, 0, this);
+    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;BubbleSort.java&apos; to &apos;AlgorithAndDataStructure/src/Week10&apos;&#x0D;&#x0A;- Original project: &apos;AlgorithAndDataStructure&apos;&#x0D;&#x0A;- Destination element: &apos;AlgorithAndDataStructure/src/Week10&apos;&#x0D;&#x0A;- Original element: &apos;Week8.BubbleSort.java&apos;" description="Copy compilation unit" destination="/src&lt;Week10" element1="/src&lt;Week8{BubbleSort.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1687523317407" units="1" version="1.0"/>
+</session>
